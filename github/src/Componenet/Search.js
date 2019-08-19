@@ -1,14 +1,20 @@
 import React, { Component } from 'react'
 
 
-export default class Search extends Component {
-    render() {
+
+
+    const Search=(props)=>{
         return (
             <div>
-           
-              <input type="text" placeholder="github username"></input> 
-              <button>Search</button> 
+           <form onSubmit={props.User}>
+              <input type="text" placeholder="github username" name="user"></input> 
+              <button >Search</button> 
+              </form>
             </div>
+           
         )
-    }
-}
+    };
+  export default Search;
+       
+    
+

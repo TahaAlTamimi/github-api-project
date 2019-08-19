@@ -6,6 +6,7 @@ export default class Table extends Component {
             <div>
                 
                 <table>
+                    <tbody>
                     <tr>
                     <th>number</th>
                     <th>name</th>
@@ -15,6 +16,7 @@ export default class Table extends Component {
                     <th>language</th>
                     <th>url</th>
                     </tr>
+                    </tbody>
                 </table>
                 <TableItem/>
             </div>

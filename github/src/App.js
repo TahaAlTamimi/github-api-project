@@ -12,18 +12,27 @@ class App extends Component {
   }
   componentDidMount(){
  fetch(`https://api.github.com/users/TahaAlTamimi/repos`)  
- .then(res=>res.json())
- .then(json=>{
-   this.setState({
-     isFound:true,
-     items:json,
-   })
+ .then(response=>response.json())
+ .then(parsedjson=>parsedjson.map(parsedjson=>
+  {
    
- })
-  } 
+    name:`${parsedjson.name}`
+    // name:`${parsedjson.private}`,
+    // parsedjson.language,
+    // parsedjson.html_url
+
+
+
+  })
+ .catch(error=>console.log("erreor",error))
+ 
+   
+ 
+ )}
 
 
 render() {
+  
   return(
     <div>
   
@@ -53,9 +62,9 @@ render() {
 
   // </div>)
  
-  )
+      )
 
-}
+    }
 }
 
   

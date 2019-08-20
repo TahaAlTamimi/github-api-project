@@ -6,50 +6,40 @@ import Table from './Componenet/Table';
 
 class App extends Component {
 state={
-  repo:null
+  repo:[]
 }
     
 // i
   user=(e)=>{
     e.preventDefault();
     const user=e.target.elements.user.value;
+    console.log(user)
+    if(user)
+      axios.get(`https://api.github.com/users/${user}/repos`).then((information)=>{
+      // console.log(repo)
+    //  if(repo===null){
+    //    return "user is not found"
+    //  }
+    this.setState({repo: information.data})
+    
   
-      axios.get(`https://api.github.com/users/${user}/repos`).then((information)=>{const repo=information.data.map(item=>{
-      return item.name +" .."+"... "+item.svn_url+"//"+`${item.private}`
     });
-   
-  this.setState({
-    repo:repo
-
-  });
-})
-    
-
   }
-    
-   
-
-
-
-  
-
-
 render() {
   return (
     <div>
 
     <Search User={this.user}/>
-    {this.state.repo?<table>{this.state.repo}</table>:<p>hi</p>}
-      <Table/>
+    {/* {this.state.repo?<table>{this.state.repo}</table>:<p>hi</p>} */}
+      <Table dataTransfer={this.state.repo}/>
       
-     
+    
       
       
     </div>
   )
     }
 }
-
   
 
 export default App;

@@ -14,14 +14,14 @@ state={
   user=(e)=>{
     e.preventDefault();
     const user=e.target.elements.user.value;
-   this.setState({Found:[]})
+   this.setState({Found:0})
    
  
     if(user)
       axios.get(`https://api.github.com/users/${user}/repos`).then((information)=>{
       
      
-    this.setState({repo: information.data})
+    this.setState({repo: information.data.slice(0,5)})
     if(this.state.repo.length===0){
       // console.log("user is not found")
       this.setState({Found:0})
@@ -47,14 +47,25 @@ render() {
     
 // </>
 //   )}
-  if(this.state.repo.length===0){
-    return(
-      <>
-      <Search User={this.user}/>
-      <p>empty repo</p>
-      </>
-    )
-  }
+if(this.state.repo.length===0){
+  return(
+    <>
+    <Search User={this.user}/>
+    <p>no repo</p>
+    </>
+  )
+}
+
+if(this.state.repo.length===0){
+return(
+  <>
+  <Search User={this.user}/>
+  <p></p>
+  </>
+)
+}
+
+  
   // if(this.state.repo.length>0){return(
   //   <>
   //     <Search User={this.user}/>

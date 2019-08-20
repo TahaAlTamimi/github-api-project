@@ -6,40 +6,97 @@ import Table from './Componenet/Table';
 
 class App extends Component {
 state={
-  repo:[]
+  repo:[],
+  Found:[]
 }
     
 // i
   user=(e)=>{
     e.preventDefault();
     const user=e.target.elements.user.value;
-    console.log(user)
+   this.setState({Found:[]})
+   
+ 
     if(user)
       axios.get(`https://api.github.com/users/${user}/repos`).then((information)=>{
-      // console.log(repo)
-    //  if(repo===null){
-    //    return "user is not found"
-    //  }
+      
+     
     this.setState({repo: information.data})
-    
+    if(this.state.repo.length===0){
+      // console.log("user is not found")
+      this.setState({Found:0})
+      
+    } 
+   
   
-    });
+    })
+    .catch(error =>{
+      this.setState({
+        repo:0
+      })
+
+    })
+    
   }
 render() {
-  return (
-    <div>
-
+//   if(!this.state.repo.length===0){
+//     return( 
+//   <>
+//   <Search User={this.user}/>
+//     <Table dataTransfer={this.state.repo}/>
+    
+// </>
+//   )}
+  if(this.state.repo.length===0){
+    return(
+      <>
+      <Search User={this.user}/>
+      <p>empty repo</p>
+      </>
+    )
+  }
+  // if(this.state.repo.length>0){return(
+  //   <>
+  //     <Search User={this.user}/>
+  //   <Table dataTransfer={this.state.repo}/>
+  //   </>
+  // )
+   
+  // }
+  if(this.state.repo===0){
+    return(
+      <>
+      <Search User={this.user}/>
+      <p>No user </p>
+      </>
+    )
+  }
+  return( 
+    <>
     <Search User={this.user}/>
-    {/* {this.state.repo?<table>{this.state.repo}</table>:<p>hi</p>} */}
       <Table dataTransfer={this.state.repo}/>
       
-    
-      
-      
-    </div>
+  </>
   )
+     
+
+   
+   }
+  // return (
+  //   <div>
+
+  //   <Search User={this.user}/>
+  //   {/* {this.state.repo?<table>{this.state.repo}</table>:<p>hi</p>} */}
+  //   {/* <Table dataTransfer={this.state.repo}/>
+  //     {!this.state.repo.length===0?<Table dataTransfer={this.state.repo}/>:"empty repo"}
+  //  {this.state.Found===0?"Use":""} 
+  //    */}
+      
+      
+  //   </div>
+  // )
     }
-}
+// }
   
 
 export default App;

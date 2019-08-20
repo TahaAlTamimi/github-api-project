@@ -7,7 +7,7 @@ class App extends Component {
         return(
         <div>
            <form onSubmit={this.props.User}>
-              <input type="text" placeholder="github username" name="user"></input> 
+              <input type="text" placeholder="github username" name="user" onFocus=""></input> 
               <button >Search</button> 
               </form>
             </div> 

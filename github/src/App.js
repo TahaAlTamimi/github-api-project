@@ -7,27 +7,31 @@ import Table from './Componenet/Table';
 class App extends Component {
 state={
   repo:[],
-  Found:[]
+  Found:0,
 }
     
 // i
   user=(e)=>{
     e.preventDefault();
     const user=e.target.elements.user.value;
-   this.setState({Found:0})
+   this.setState({Found:10})
    
  
     if(user)
       axios.get(`https://api.github.com/users/${user}/repos`).then((information)=>{
+        if(information.data.length===0){
+          this.setState({Found: 10})
+        }
       
      
     this.setState({repo: information.data.slice(0,5)})
-    if(this.state.repo.length===0){
-      // console.log("user is not found")
-      this.setState({Found:0})
+    // if(this.state.repo.length===0){
+    //   // console.log("user is not found")
+    //   this.setState({Found:0})
       
-    } 
+    // }
    
+    
   
     })
     .catch(error =>{
@@ -39,6 +43,9 @@ state={
     
   }
 render() {
+
+  
+  
 //   if(!this.state.repo.length===0){
 //     return( 
 //   <>
@@ -47,14 +54,26 @@ render() {
     
 // </>
 //   )}
-if(this.state.repo.length===0){
+if(this.state.repo===0){
   return(
     <>
     <Search User={this.user}/>
-    <p>no repo</p>
+    <p>no user</p>
     </>
   )
 }
+
+if(this.state.repo.length===0&&this.state.Found===10){
+  return(
+    <>
+  <Search User={this.user}/>
+  <p>no repo</p>
+  </>
+
+  )
+}
+
+
 
 if(this.state.repo.length===0){
 return(
@@ -65,15 +84,8 @@ return(
 )
 }
 
-  
-  // if(this.state.repo.length>0){return(
-  //   <>
-  //     <Search User={this.user}/>
-  //   <Table dataTransfer={this.state.repo}/>
-  //   </>
-  // )
-   
-  // }
+
+ 
   if(this.state.repo===0){
     return(
       <>
@@ -82,6 +94,8 @@ return(
       </>
     )
   }
+
+
   return( 
     <>
     <Search User={this.user}/>
@@ -93,6 +107,16 @@ return(
 
    
    }
+    
+  // if(this.state.repo.length>0){return(
+  //   <>
+  //     <Search User={this.user}/>
+  //   <Table dataTransfer={this.state.repo}/>
+  //   </>
+  // )
+   
+  // }
+
   // return (
   //   <div>
 

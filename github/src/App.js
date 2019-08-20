@@ -13,17 +13,17 @@ state={
   user=(e)=>{
     e.preventDefault();
     const user=e.target.elements.user.value;
-    if(user){
+  
       axios.get(`https://api.github.com/users/${user}/repos`).then((information)=>{const repo=information.data.map(item=>{
-      return item.name +" "+" "+item.svn_url
+      return item.name +" .."+"... "+item.svn_url+"//"+`${item.private}`
     });
    
-  this.setstate({
+  this.setState({
     repo:repo
 
   });
 })
-    }else return "user"
+    
 
   }
     
